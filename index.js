@@ -1,35 +1,82 @@
-const addButton = document.querySelector('.add');
-var inputValue = document.querySelector('.input');
-const container = document.querySelector('.container');
+//selectors
+const todoInput = document.querySelector('.todo-input');
+const todoButton = document.querySelector('.todo-button');
+const todoList = document.querySelector('.todo-list');
 
-class item{
-    constructor(itemName){
-        this.createDiv(itemName);
-    }
+//eventslisterner
+todoButton.addEventListener('click',addTodo);
+todoList.addEventListener('click',deleteCheck);
+todoList.addEventListener('click',edit);
 
-    createDiv(itemName){
-        let input = document.createElement('input');
-        input.value = itemName;
-        input.disable = true;
-        input.classList.add('item_input');
-        input.type= "text";
+//functions
+function addTodo(event){
+    event.preventDefault(); //stops the browser to get reload when click on button
+    //todo div
+    const todoDiv = document.createElement("div");
+    todoDiv.classList.add("todo"); //class name of todoDiv is todo
+    //create li
+    const newTodo = document.createElement('li');
+    //adding element in tododiv(task)
+    newTodo.disable = true;
+    newTodo.innerHTML = todoInput.value;
+    newTodo.classList.add('todo-item');
+    todoDiv.appendChild(newTodo); //append the newtodo to tododiv
 
-        let itemBox = document.createElement('div');
-        itemBox.classList.add('item');
+    //completed button
+    const completedButton = document.createElement('button');
+    completedButton.innerHTML = "<i class='fa fa-check' aria-hidden='true'></i>";
+    completedButton.classList.add("complete-btn");
+    todoDiv.appendChild(completedButton);
 
-        let edit = document.createElement('button');
-        edit.innerHTML = "EDIT";
-        edit.classList.add('edit');
+    //trash button
+    const deleteButton = document.createElement('button');
+    trashButton.innerHTML = "<i class='fa fa-trash' aria-hidden='true'></i>";
+    trashButton.classList.add("delete-btn");
+    todoDiv.appendChild(deleteButton);
 
-        let remove = document.createElement('button');
-        remove.innerHTML = "REMOVE";
-        remove.classList.add('remove');
+    //edit btn
+    const editbutton = document.createElement('button');
+    editbutton.innerHTML = "edit";
+    editbutton.classList.add('edit-btn');
+    todoDiv.appendChild(editbutton);
 
-        container.appendChild(itemBox);
 
-        itemBox.appendChild(input);
-        itemBox.appendChild(edit);
-        itemBox.appendChild(remove);
-    }
+    //append all the todotask(todoDiv) to todolist
+    todoList.appendChild(todoDiv);
+
+    //clear toinput value(user input wale box ka after adding delete from the inputbox)
+    todoInput.value = "";
 }
-new item("water");
+
+
+function deleteCheck(event){
+    const item = event.target;
+    //delete todo
+    if(item.classList[0] === "delete-btn"){
+        const todo = item.parentElement;
+        todo.remove();
+    }
+
+    //check mark
+    if(item.classList[0] === "complete-btn"){
+        const todo =item.parentElement;
+        todo.classList.toggle('completed');
+    }
+
+    /*if(item.classList[0] === "edit-btn"){
+        const todo =item.parentElement;
+        item.parentElement.disabled = !item.parentElement.disabled;
+    }*/
+
+    
+
+}
+
+function edit(e){
+    const item = e.target; //return the clicked item inside the list
+        if(item.classList[0] === "edit-btn"){
+            const todo =item.parentElement;
+            item.parentElement.disable = !item.parentElement.disabled;
+        }
+
+    }
