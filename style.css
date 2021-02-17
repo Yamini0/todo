@@ -153,6 +153,12 @@ body{
     opacity: 0.8;
     transition: .3s;
 }
+
+@media screen and (max-width: 600px){
+    #todos{
+        width: 100%;
+    }
+}
 /*animation*/
 .box div{
     position: absolute;
