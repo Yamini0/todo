@@ -1,5 +1,5 @@
 # To-Do Application
-This todo application is build using JavaScript, HTML, CSS..
+This todo application is build using JavaScript, HTML, CSS.
 
 Link for the application:- https://yamini0.github.io/todo.github.io/index.html
 
